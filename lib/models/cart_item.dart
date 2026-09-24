@@ -1,11 +1,15 @@
-import 'product.dart';
-
 class CartItem {
-  final Product product;
-  int quantity;
+  final String id;
+  final String title;
+  final int quantity;
+  final double price;
+  final String imageUrl;
 
   CartItem({
-    required this.product,
-    this.quantity = 1,
+    required this.id,
+    required this.title,
+    required this.quantity,
+    required this.price,
+    required this.imageUrl,
   });
 }

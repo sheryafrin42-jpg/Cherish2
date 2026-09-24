@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'providers/cart_provider.dart';
 import 'screens/catalog_screen.dart';
 
-void main() {
+void main() async {
+  // Memastikan binding Flutter siap sebelum memanggil database
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  final cartProvider = CartProvider();
+  await cartProvider.fetchAndSetProducts(); // Muat data database di awal app
+
   runApp(
-    ChangeNotifierProvider(
-      create: (ctx) => CartProvider(),
+    ChangeNotifierProvider.value(
+      value: cartProvider,
       child: const MyApp(),
     ),
   );
@@ -22,7 +29,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.pink,
-        scaffoldBackgroundColor: const Color(0xFFFFF7F9),
+        fontFamily: 'Lato',
       ),
       home: const CatalogScreen(),
     );
